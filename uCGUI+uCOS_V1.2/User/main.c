@@ -44,9 +44,13 @@ void deadloopTask(void *data)
 {
 	delay_init();	    	 
  	LED_Init();			     //LED
+	LED0 = 0;
 	GUI_Init();
 	while(1)
 	{
+			LED0 = !LED0;
+		LED1 = !LED1;
+
 		GUI_SetBkColor(GUI_BLUE);
 		GUI_Clear();
 	//GUI_Delay(10);
@@ -64,7 +68,7 @@ void startTask(void *data)
 		OSTaskCreate(deadloopTask,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&deadloopTask_STK[START_STK_SIZE-1],//task stack top pointer
-					4 ); //task priority
+					1 ); //task priority
 }
 
 int main(void)
@@ -72,9 +76,13 @@ int main(void)
   /* Add your application code here */
 	MCU_Init();
 	SysTick_Configuration(); 
-  
+	
+	
+	
 	delay_init();	    	 
  	LED_Init();			     //LED
+	LED0 = 0;
+	LED1 = 1;
 	GUI_Init();
 	GUI_SetBkColor(GUI_BLUE);
 	GUI_Clear();
@@ -84,15 +92,13 @@ int main(void)
 	
 	GUI_DispString("OS init done!");	
 	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+	delay_ms(500);
 	
 	OSTaskCreate(startTask,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&TASK_START_STK[START_STK_SIZE-1],//task stack top pointer
 					START_TASK_Prio ); //task priority
 	OSStart();                 //开始多任务执行
-	
-	GUI_DispString("OS start done!");	
-	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 		
 	return 0;	   
 }
