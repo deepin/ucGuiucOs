@@ -20,6 +20,7 @@ Purpose     : Config / System dependent externals for GUI
 #include "GUI.h"
 #include "GUI_X.h"
 #include "Touch_s.h"
+#include "touch.h"
 extern u16 TP_X,TP_Y;
 
 void GUI_TOUCH_X_ActivateX(void) 
