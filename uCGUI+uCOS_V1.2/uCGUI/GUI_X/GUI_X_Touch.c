@@ -19,8 +19,9 @@ Purpose     : Config / System dependent externals for GUI
 
 #include "GUI.h"
 #include "GUI_X.h"
-#include "Touch_s.h"
+//#include "Touch_s.h"
 #include "touch.h"
+#include "gt811.h"
 extern u16 TP_X,TP_Y;
 
 void GUI_TOUCH_X_ActivateX(void) 
@@ -33,16 +34,12 @@ void GUI_TOUCH_X_ActivateY(void)
 
 int  GUI_TOUCH_X_MeasureX(void) 
 {
-	u16 x, y;
-	TP_Read_XY2(&x, &y);
-	return x;
+	return ctp_dev.x[0];
 }
 
 int  GUI_TOUCH_X_MeasureY(void) 
 {
-	u16 x, y;
-	TP_Read_XY2(&x, &y);
-	return y;
+	return ctp_dev.y[0];
 }
 
 

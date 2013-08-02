@@ -40,7 +40,7 @@ typedef struct
 //touchtype=1的时候,适合左右为Y坐标,上下为X坐标的TP.
 	u8 touchtype;
 }_m_tp_dev;
-
+//#include "touch_s.h"
 extern _m_tp_dev tp_dev;	 	//触屏控制器在touch.c里面定义
 
 //与触摸屏芯片连接引脚	   

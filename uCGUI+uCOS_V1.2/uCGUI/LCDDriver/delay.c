@@ -37,7 +37,7 @@
 ////////////////////////////////////////////////////////////////////////////////// 	 
 static u8  fac_us=0;//us延时倍乘数
 static u16 fac_ms=0;//ms延时倍乘数
-#ifdef OS_CRITICAL_METHOD 	//如果OS_CRITICAL_METHOD定义了,说明使用ucosII了.
+/*#ifdef OS_CRITICAL_METHOD 	//如果OS_CRITICAL_METHOD定义了,说明使用ucosII了.
 //systick中断服务函数,使用ucos时用到
 void SysTick_Handler(void)
 {				   
@@ -46,7 +46,7 @@ void SysTick_Handler(void)
     OSIntExit();        //触发任务切换软中断
 }
 #endif
-
+*/
 //初始化延迟函数
 //当使用ucos的时候,此函数会初始化ucos的时钟节拍
 //SYSTICK的时钟固定为HCLK时钟的1/8
@@ -100,7 +100,7 @@ void delay_us(u32 nus)
 //nms:要延时的ms数
 void delay_ms(u16 nms)
 {	
-	if(OSRunning==TRUE)//如果os已经在跑了	    
+	if(OSRunning != 0)//如果os已经在跑了	    
 	{		  
 		if(nms>=fac_ms)//延时的时间大于ucos的最少时间周期 
 		{

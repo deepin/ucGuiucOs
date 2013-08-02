@@ -25,6 +25,8 @@ GUITouch.conf.h (Should be located in the Config\ directory).
 #include <string.h>
 #include "LCD_Private.h"      /* private modul definitions & config */
 #include "GUI_Protected.h"
+#include "gt811.h"
+
 
 /* Generate code only if configuration says so ! */
 #if GUI_SUPPORT_TOUCH
@@ -238,10 +240,14 @@ void GUI_TOUCH_GetCalData(int Coord, int* pMin,int* pMax) {
 *
 *       GUI_TOUCH_Exec
 */
+
 void GUI_TOUCH_Exec(void) {
   #ifndef WIN32
   static U8 ReadState;
   int x,y;
+	
+	ctp_dev.scan();
+	
   /* calculate Min / Max values */
   if (xyMinMax[GUI_COORD_X].Min < xyMinMax[GUI_COORD_X].Max) {
     xMin = xyMinMax[GUI_COORD_X].Min;

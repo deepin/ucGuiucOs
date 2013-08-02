@@ -1,6 +1,10 @@
 #include "LCD_Private.h"      /* private modul definitions & config */
 #include "GUI_Private.h"
-#include "ili93xx.H"	  
+#include "ili93xx.H"
+#include "touch.h"
+#include "delay.h"
+#include "gt811.h"
+
 
 /******************************************************************************************
 **uC/GUI底层接口深度优化，尽量降低函数嵌套调用层数，否则堆栈占用太多内存导致GUI运行失败！
@@ -10,6 +14,13 @@
 int LCD_L0_Init(void)
 {  
 	LCD_Init_drive();
+		while(ctp_dev.init())		   	//????????
+	{
+		//Show_Str(60,110,lcddev.width,16,"??????????!",16,0); 
+		delay_ms(200);
+		//Show_Str(60,110,lcddev.width,16,"      ???!!!    ",16,0); 
+ 		delay_ms(200);
+	};
   return 0;
 }
 
