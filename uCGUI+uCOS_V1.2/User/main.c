@@ -95,7 +95,7 @@ void startTask(void *data)
 					(void *)0,	       //parameter
 					(OS_STK *)&deadloopTask_STK[bigger_stk_size-1],//task stack top pointer
 					4 ); //task priority
-	
+	delay_ms(100);
 	OSTaskCreate(deadloopTask2,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&deadloopTask_STK2[bigger_stk_size-1],//task stack top pointer
@@ -109,24 +109,13 @@ int main(void)
 	SysTick_Configuration(); 
 	
 	
-	
-	delay_init();	    	 
- 	LED_Init();			     //LED
-	LED0 = 0;
-	LED1 = 1;
+		delay_init();	    	 
 	GUI_Init();
-	GUI_SetBkColor(GUI_BLUE);
-	GUI_Clear();
-	GUI_SetFont(&GUI_Font32B_ASCII);
-		
-	OSInit(); 
-	GUI_DispString("OS init done!");	
-		printf("string by printf!");
-
-	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-	delay_ms(500);
+			GUI_SetBkColor(GUI_BLUE);
+		GUI_Clear();
 	
-	OSTaskCreate(startTask,	   //task pointer
+	
+	OSTaskCreate(TaskStart,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&TASK_START_STK[START_STK_SIZE-1],//task stack top pointer
 					START_TASK_Prio ); //task priority
