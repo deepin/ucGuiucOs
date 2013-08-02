@@ -38,8 +38,8 @@ OS_STK  TASK_START_STK[START_STK_SIZE];
   * @param  None
   * @retval None
   */
-	
-OS_STK  deadloopTask_STK[START_STK_SIZE];
+#define bigger_stk_size 128
+OS_STK  deadloopTask_STK[bigger_stk_size];
 void deadloopTask(void *data)
 {
 	delay_init();	    	 
@@ -48,14 +48,16 @@ void deadloopTask(void *data)
 	GUI_Init();
 	while(1)
 	{
-			LED0 = !LED0;
-		LED1 = !LED1;
+
+		LED0 = !LED0;
 
 		GUI_SetBkColor(GUI_BLUE);
 		GUI_Clear();
 	//GUI_Delay(10);
 		GUI_SetFont(&GUI_Font32B_ASCII);
 		GUI_DispString("Hello World!");	
+			//printf("string by printf!");
+
 		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 		//GUI_FillCircle(300, 64, 40);	
 		delay_ms(500);
@@ -63,11 +65,40 @@ void deadloopTask(void *data)
 	
 }
 
+OS_STK  deadloopTask_STK2[bigger_stk_size];
+void deadloopTask2(void *data)
+{
+	delay_init();	    	 
+ 	LED_Init();			     //LED
+	GUI_Init();
+	while(1)
+	{
+
+		LED1 = !LED1;
+
+		GUI_SetBkColor(GUI_BLUE);
+		GUI_Clear();
+	//GUI_Delay(10);
+		GUI_SetFont(&GUI_Font32B_ASCII);
+		//GUI_DispString("Hello World!");	
+			//printf("string by printf!");
+
+		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+		//GUI_FillCircle(300, 64, 40);	
+		delay_ms(500);
+	}
+	
+}
 void startTask(void *data)
 {
 		OSTaskCreate(deadloopTask,	   //task pointer
 					(void *)0,	       //parameter
-					(OS_STK *)&deadloopTask_STK[START_STK_SIZE-1],//task stack top pointer
+					(OS_STK *)&deadloopTask_STK[bigger_stk_size-1],//task stack top pointer
+					1 ); //task priority
+	
+	OSTaskCreate(deadloopTask2,	   //task pointer
+					(void *)0,	       //parameter
+					(OS_STK *)&deadloopTask_STK2[bigger_stk_size-1],//task stack top pointer
 					1 ); //task priority
 }
 
@@ -89,8 +120,9 @@ int main(void)
 	GUI_SetFont(&GUI_Font32B_ASCII);
 		
 	OSInit(); 
-	
 	GUI_DispString("OS init done!");	
+		printf("string by printf!");
+
 	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 	delay_ms(500);
 	
