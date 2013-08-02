@@ -26,6 +26,7 @@
 #include "APP.h"
 #include "bmp.h"
 #include "delay.h"
+#include "led.h"
 #include "MusicPlayer.h"
 
 void SysTick_Configuration(void);
@@ -41,28 +42,25 @@ OS_STK  TASK_START_STK[START_STK_SIZE];
 OS_STK  deadloopTask_STK[START_STK_SIZE];
 void deadloopTask(void *data)
 {
-	//a simple mcu program to test lcd
-	delay_init();	    	 //???????	  
- 	//LED_Init();			     //LED?????
+	delay_init();	    	 
+ 	LED_Init();			     //LED
 	GUI_Init();
+	while(1)
+	{
 		GUI_SetBkColor(GUI_BLUE);
-	GUI_Clear();
+		GUI_Clear();
 	//GUI_Delay(10);
-	GUI_SetFont(&GUI_Font32B_ASCII);
-	GUI_DispString("Hello World!");	
+		GUI_SetFont(&GUI_Font32B_ASCII);
+		GUI_DispString("Hello World!");	
 		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-	 GUI_FillCircle(120, 64, 40);	
-	while(1);
+		//GUI_FillCircle(300, 64, 40);	
+		delay_ms(500);
+	}
+	
 }
 
 void startTask(void *data)
 {
-	#if OS_CRITICAL_METHOD == 3
-    OS_CPU_SR  cpu_sr;
-#endif
-
-INT8U err;
-
 		OSTaskCreate(deadloopTask,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&deadloopTask_STK[START_STK_SIZE-1],//task stack top pointer
@@ -73,26 +71,29 @@ int main(void)
 {
   /* Add your application code here */
 	MCU_Init();
-	SysTick_Configuration();   	
-	
-		delay_init();	    	 //???????	  
- 	//LED_Init();			     //LED?????
+	SysTick_Configuration(); 
+  
+	delay_init();	    	 
+ 	LED_Init();			     //LED
 	GUI_Init();
-		GUI_SetBkColor(GUI_BLUE);
+	GUI_SetBkColor(GUI_BLUE);
 	GUI_Clear();
-	//GUI_Delay(10);
 	GUI_SetFont(&GUI_Font32B_ASCII);
-	GUI_DispString("Hello World!");	
-		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-	 GUI_FillCircle(120, 64, 40);	
-	while(1);
-	
+		
 	OSInit(); 
+	
+	GUI_DispString("OS init done!");	
+	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+	
 	OSTaskCreate(startTask,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&TASK_START_STK[START_STK_SIZE-1],//task stack top pointer
 					START_TASK_Prio ); //task priority
-	OSStart();                 //开始多任务执行	
+	OSStart();                 //开始多任务执行
+	
+	GUI_DispString("OS start done!");	
+	GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+		
 	return 0;	   
 }
 

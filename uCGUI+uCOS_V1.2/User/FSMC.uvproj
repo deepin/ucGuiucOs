@@ -48,8 +48,8 @@
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
-          <DebugInformation>0</DebugInformation>
-          <BrowseInformation>0</BrowseInformation>
+          <DebugInformation>1</DebugInformation>
+          <BrowseInformation>1</BrowseInformation>
           <ListingPath>..\List\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -350,7 +350,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER, STM32F10X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\Libraries\CMSIS\CM3;..\User;..\HARDWARE\LCD_9320;..\HARDWARE\SD_Card;..\HARDWARE\Touch;..\HARDWARE\VS1003;..\HARDWARE;..\Initialize;..\uCGUI\AntiAlias;..\uCGUI\Config;..\uCGUI\ConvertColor;..\uCGUI\ConvertMono;..\uCGUI\Core;..\uCGUI\Font;..\uCGUI\GUI_X;..\uCGUI\LCDDriver;..\uCGUI\MultiLayer;..\uCGUI\Widget;..\uCGUI\WM;..\fatfs;..\uCGUI\MemDev;..\My_UI;..\UCOS-II\PORTS;..\UCOS-II\SOURCE;..\UCOS-II\CONFIG;..\APP</IncludePath>
+              <IncludePath>..\Libraries\STM32F10x_StdPeriph_Driver\inc;..\Libraries\CMSIS\CM3;..\User;..\HARDWARE\LCD_9320;..\HARDWARE\SD_Card;..\HARDWARE\Touch;..\HARDWARE\VS1003;..\HARDWARE;..\Initialize;..\uCGUI\AntiAlias;..\uCGUI\Config;..\uCGUI\ConvertColor;..\uCGUI\ConvertMono;..\uCGUI\Core;..\uCGUI\Font;..\uCGUI\GUI_X;..\uCGUI\LCDDriver;..\uCGUI\MultiLayer;..\uCGUI\Widget;..\uCGUI\WM;..\fatfs;..\uCGUI\MemDev;..\My_UI;..\UCOS-II\PORTS;..\UCOS-II\SOURCE;..\UCOS-II\CONFIG;..\APP;..\HARDWARE\LED</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -475,6 +475,11 @@
               <FileName>myiic.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\uCGUI\LCDDriver\myiic.c</FilePath>
+            </File>
+            <File>
+              <FileName>led.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\LED\led.c</FilePath>
             </File>
           </Files>
         </Group>
