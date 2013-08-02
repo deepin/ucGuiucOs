@@ -39,6 +39,22 @@ int main(void)
   /* Add your application code here */
 	MCU_Init();
 	SysTick_Configuration();   //系统时钟初始化
+
+	//a simple mcu program to test lcd
+/*	delay_init();	    	 //???????	  
+ 	//LED_Init();			     //LED?????
+	GUI_Init();
+		GUI_SetBkColor(GUI_RED);
+	GUI_Clear();
+//	GUI_Delay(10);
+	GUI_SetFont(&GUI_Font32B_ASCII);
+	GUI_DispString("Hello World!");	
+		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
+	 GUI_FillCircle(120, 64, 40);	
+	while(1);
+	*/
+	
+	
 	OSInit(); 
 	OSTaskCreate(TaskStart,	   //task pointer
 					(void *)0,	       //parameter

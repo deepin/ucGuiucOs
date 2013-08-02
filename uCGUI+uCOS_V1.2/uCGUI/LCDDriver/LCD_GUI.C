@@ -1,6 +1,6 @@
 #include "LCD_Private.h"      /* private modul definitions & config */
 #include "GUI_Private.h"
-#include "LCD_9320.H"	  
+#include "ili93xx.H"	  
 
 /******************************************************************************************
 **uC/GUI底层接口深度优化，尽量降低函数嵌套调用层数，否则堆栈占用太多内存导致GUI运行失败！
@@ -9,78 +9,63 @@
 
 int LCD_L0_Init(void)
 {  
-	ili9320_Initializtion();
+	LCD_Init_drive();
   return 0;
 }
 
 void LCD_L0_SetPixelIndex(int x, int y, int PixelIndex)
 {
-	*(__IO uint16_t *) (Bank1_LCD_C)= 32;	
-  *(__IO uint16_t *) (Bank1_LCD_D)= x;
-  *(__IO uint16_t *) (Bank1_LCD_C)= 33;	
-  *(__IO uint16_t *) (Bank1_LCD_D)= y;
-  *(__IO uint16_t *) (Bank1_LCD_C)= 34;	
-  *(__IO uint16_t *) (Bank1_LCD_D)= PixelIndex;
+		ili9320_SetPixelIndex(x,y,PixelIndex);
 }
 unsigned int LCD_L0_GetPixelIndex(int x, int y)
 {
-	*(__IO uint16_t *) (Bank1_LCD_C)= 32;
-  *(__IO uint16_t *) (Bank1_LCD_D)= x;
-  *(__IO uint16_t *) (Bank1_LCD_C)= 33;
-  *(__IO uint16_t *) (Bank1_LCD_D)= y;
-  *(__IO uint16_t *) (Bank1_LCD_C)= 34;
-  return (ili9320_BGR2RGB(LCD_RD_data()));
+  return ili9320_GetPixelIndex(x,y);
 }
 
 void LCD_L0_SetOrg(int x,int y)
 {
 }
 
-void LCD_L0_XorPixel(int x, int y)
-{
-	u16 Index ;
-	*(__IO uint16_t *) (Bank1_LCD_C)= 32;
-  *(__IO uint16_t *) (Bank1_LCD_D)= x;
-  *(__IO uint16_t *) (Bank1_LCD_C)= 33;
-  *(__IO uint16_t *) (Bank1_LCD_D)= y;
-  *(__IO uint16_t *) (Bank1_LCD_C)= 34;
-  Index = ili9320_BGR2RGB(LCD_RD_data());
-  LCD_L0_SetPixelIndex(x,y,LCD_NUM_COLORS-1-Index);
+
+/*********************************************************************
+*
+*       LCD_L0_XorPixel
+*/
+void LCD_L0_XorPixel(int x, int y) {
+  LCD_PIXELINDEX PixelIndex = LCD_L0_GetPixelIndex(x, y);
+  LCD_L0_SetPixelIndex(x, y, LCD_NUM_COLORS - PixelIndex - 1);
 }
 
- void LCD_L0_DrawHLine  (int x0, int y,  int x1)
-{
-	 if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
+/*********************************************************************
+*
+*       LCD_L0_DrawHLine
+*/
+void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
+  if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
     for (; x0 <= x1; x0++) {
       LCD_L0_XorPixel(x0, y);
     }
   } else {
-		for(;x0 <= x1;x0++) {	
-			*(__IO uint16_t *) (Bank1_LCD_C)= 32;	
-			*(__IO uint16_t *) (Bank1_LCD_D)= x0;
-			*(__IO uint16_t *) (Bank1_LCD_C)= 33;	
-			*(__IO uint16_t *) (Bank1_LCD_D)= y;
-			*(__IO uint16_t *) (Bank1_LCD_C)= 34;	
-			*(__IO uint16_t *) (Bank1_LCD_D)= LCD_COLORINDEX;
-		}
-	}
+    for (; x0 <= x1; x0++) {
+      LCD_L0_SetPixelIndex(x0, y, POINT_COLOR);
+    }
+  }
 }
- void LCD_L0_DrawVLine  (int x, int y0,  int y1)
-{
-	if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
+
+/*********************************************************************
+*
+*       LCD_L0_DrawVLine
+*/
+void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
+  if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
     for (; y0 <= y1; y0++) {
       LCD_L0_XorPixel(x, y0);
     }
   } else {
-		for(;y0 <= y1;y0++) {	
-			*(__IO uint16_t *) (Bank1_LCD_C)= 32;	
-			*(__IO uint16_t *) (Bank1_LCD_D)= x;
-			*(__IO uint16_t *) (Bank1_LCD_C)= 33;	
-			*(__IO uint16_t *) (Bank1_LCD_D)= y0;
-			*(__IO uint16_t *) (Bank1_LCD_C)= 34;	
-			*(__IO uint16_t *) (Bank1_LCD_D)= LCD_COLORINDEX;
-		}
-	}
+    for (; y0 <= y1; y0++) {
+      LCD_L0_SetPixelIndex(x, y0, POINT_COLOR);
+    }
+  }
 }
  void LCD_L0_FillRect(int x0, int y0, int x1, int y1) 
 {

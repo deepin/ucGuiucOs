@@ -27,8 +27,8 @@ Purpose     : Sample configuration file
 **********************************************************************
 */
 
-#define LCD_XSIZE          (240)   /* X-resolution of LCD, Logical coor. */
-#define LCD_YSIZE          (320)   /* Y-resolution of LCD, Logical coor. */
+#define LCD_XSIZE          (800)   /* X-resolution of LCD, Logical coor. */
+#define LCD_YSIZE          (480)   /* Y-resolution of LCD, Logical coor. */
 
 #define LCD_BITSPERPIXEL   (16)
 
@@ -36,7 +36,7 @@ Purpose     : Sample configuration file
 #define LCD_FIXEDPALETTE   (565)
 #define LCD_SWAP_RB        (1)
 // #define LCD_SWAP_XY        (1)
-#define LCD_INIT_CONTROLLER()  ili9320_Initializtion();
+#define LCD_INIT_CONTROLLER()  LCD_Init_drive();
 
 #endif /* LCDCONF_H */
 

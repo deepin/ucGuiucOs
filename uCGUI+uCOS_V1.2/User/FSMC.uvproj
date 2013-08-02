@@ -136,6 +136,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>0</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
+            <RestoreTracepoints>0</RestoreTracepoints>
           </Target>
           <RunDebugAfterBuild>0</RunDebugAfterBuild>
           <TargetSelection>7</TargetSelection>
@@ -400,6 +401,11 @@
               <FileType>1</FileType>
               <FilePath>.\stm32f10x_it.c</FilePath>
             </File>
+            <File>
+              <FileName>delay.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\uCGUI\LCDDriver\delay.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -476,9 +482,9 @@
               <FilePath>..\uCGUI\LCDDriver\LCD_GUI.C</FilePath>
             </File>
             <File>
-              <FileName>LCD_9320.c</FileName>
+              <FileName>ILI93xx.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\uCGUI\LCDDriver\LCD_9320.c</FilePath>
+              <FilePath>..\uCGUI\LCDDriver\ILI93xx.c</FilePath>
             </File>
           </Files>
         </Group>
