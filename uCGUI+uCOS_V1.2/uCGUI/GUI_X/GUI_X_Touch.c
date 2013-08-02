@@ -33,58 +33,16 @@ void GUI_TOUCH_X_ActivateY(void)
 
 int  GUI_TOUCH_X_MeasureX(void) 
 {
-	unsigned int TX[5];
-	unsigned char i = 0;
-	u16 min,temp; //使用选择法排序
-	u8 k = 0;	
-	TCS_0;
-	for (i = 0;i <5 ;i++) {
-		WriteCharTo7843(0xD0);        //送控制字 10010000 即用差分方式读X坐标 详细请见有关资料
-		DCLK_1; 
-		delays(1);
-		DCLK_0; 
-		TX[i]=ReadFromCharFrom7843();	
-	}
-	TCS_1;
-	for(i = 0;i < 5;i++) {	 
-		min = i;  
-		for(k = i+1;k != 5;k++){		
-			if(TX[min] > TX[k])  		
-			    min = k;
-    }	   
-		temp=TX[i];		    
-		TX[i]=TX[min];	   
-		TX[min]=temp;
-	}
-  return TX[2];
+	u16 x, y;
+	TP_Read_XY2(&x, &y);
+	return x;
 }
 
 int  GUI_TOUCH_X_MeasureY(void) 
 {
-	int TY[5];
-	unsigned char i = 0;
-	u16 min,temp; //使用选择法排序
-	u8 k = 0;
-	TCS_0;
-	for (i = 0;i <5 ;i++) {
-		WriteCharTo7843(0x90);        //送控制字 10010000 即用差分方式读Y坐标 详细请见有关资料
-		DCLK_1; 
-		delays(1);
-		DCLK_0; 
-		TY[i]=ReadFromCharFrom7843();
-  }
-	TCS_1;
-	for(i = 0;i < 5;i++) {	 
-		min = i;  
-		for(k = i+1;k != 5;k++){		
-			if(TY[min] > TY[k])  		
-			    min = k;
-    }	   
-		temp=TY[i];		    
-		TY[i]=TY[min];	   
-		TY[min]=temp;
-	}
-  return TY[2];
+	u16 x, y;
+	TP_Read_XY2(&x, &y);
+	return y;
 }
 
 

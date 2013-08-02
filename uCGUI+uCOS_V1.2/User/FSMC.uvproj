@@ -462,11 +462,6 @@
               <FilePath>..\HARDWARE\SD_Card\SD.c</FilePath>
             </File>
             <File>
-              <FileName>Touch_s.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\HARDWARE\Touch\Touch_s.c</FilePath>
-            </File>
-            <File>
               <FileName>vs1003.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\VS1003\vs1003.c</FilePath>
