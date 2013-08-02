@@ -94,12 +94,12 @@ void startTask(void *data)
 		OSTaskCreate(deadloopTask,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&deadloopTask_STK[bigger_stk_size-1],//task stack top pointer
-					1 ); //task priority
+					4 ); //task priority
 	
 	OSTaskCreate(deadloopTask2,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&deadloopTask_STK2[bigger_stk_size-1],//task stack top pointer
-					1 ); //task priority
+					3 ); //task priority
 }
 
 int main(void)
