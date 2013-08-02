@@ -107,7 +107,7 @@ int main(void)
   /* Add your application code here */
 	MCU_Init();
 	SysTick_Configuration(); 
-	
+	OSInit();
 	
 		delay_init();	    	 
 	GUI_Init();
