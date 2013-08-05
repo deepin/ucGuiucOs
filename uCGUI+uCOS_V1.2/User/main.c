@@ -111,7 +111,7 @@ int main(void)
 	
 		delay_init();	    	 
 	GUI_Init();
-			GUI_SetBkColor(GUI_BLUE);
+			//GUI_SetBkColor(GUI_BLUE);
 		GUI_Clear();
 	
 	

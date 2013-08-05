@@ -164,10 +164,13 @@ static  void  CheckInit (void)
     }
 }
 
-
+unsigned char GT811_Init(void);
+int LCD_L0_Init(void);
 void GUI_X_Init (void) 
 {
     KeySem = OSSemCreate(0);
+		GT811_Init();
+	LCD_L0_Init();
 }
 
 

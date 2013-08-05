@@ -246,7 +246,6 @@ void GUI_TOUCH_Exec(void) {
   static U8 ReadState;
   int x,y;
 	
-	ctp_dev.scan();
 	
   /* calculate Min / Max values */
   if (xyMinMax[GUI_COORD_X].Min < xyMinMax[GUI_COORD_X].Max) {

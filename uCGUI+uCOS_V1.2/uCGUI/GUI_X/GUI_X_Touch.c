@@ -20,9 +20,9 @@ Purpose     : Config / System dependent externals for GUI
 #include "GUI.h"
 #include "GUI_X.h"
 //#include "Touch_s.h"
-#include "touch.h"
+//#include "touch.h"
 #include "gt811.h"
-extern u16 TP_X,TP_Y;
+//extern u16 TP_X,TP_Y;
 
 void GUI_TOUCH_X_ActivateX(void) 
 {
@@ -34,11 +34,13 @@ void GUI_TOUCH_X_ActivateY(void)
 
 int  GUI_TOUCH_X_MeasureX(void) 
 {
+	GT811_Scan();
 	return ctp_dev.x[0];
 }
 
 int  GUI_TOUCH_X_MeasureY(void) 
 {
+	GT811_Scan();
 	return ctp_dev.y[0];
 }
 
