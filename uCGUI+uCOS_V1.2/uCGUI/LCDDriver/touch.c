@@ -1,6 +1,6 @@
 //#include <stm32f10x_map.h>
 #include "touch.h" 
-#include "ili93xx.h"
+#include"mylcd.h"//#include "ili93xx.h"
 #include "delay.h"
 #include "stdlib.h"
 #include "math.h"

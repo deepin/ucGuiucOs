@@ -36,7 +36,7 @@ Purpose     : Sample configuration file
 #define LCD_FIXEDPALETTE   (565)
 #define LCD_SWAP_RB        (1)
 // #define LCD_SWAP_XY        (1)
-#define LCD_INIT_CONTROLLER()  LCD_Init_drive();
+#define LCD_INIT_CONTROLLER()  LCD_Init_driver();
 
 #endif /* LCDCONF_H */
 

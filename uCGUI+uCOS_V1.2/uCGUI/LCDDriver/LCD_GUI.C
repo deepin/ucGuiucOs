@@ -1,6 +1,6 @@
 #include "LCD_Private.h"      /* private modul definitions & config */
 #include "GUI_Private.h"
-#include "ili93xx.H"
+#include"mylcd.h"//#include "ili93xx.H"
 #include "touch.h"
 #include "delay.h"
 #include "gt811.h"
@@ -13,7 +13,7 @@
 
 int LCD_L0_Init(void)
 {  
-	LCD_Init_drive();
+	LCD_Init_driver();
 		while(ctp_dev.init())		   	//????????
 	{
 		//Show_Str(60,110,lcddev.width,16,"??????????!",16,0); 
@@ -26,11 +26,16 @@ int LCD_L0_Init(void)
 
 void LCD_L0_SetPixelIndex(int x, int y, int PixelIndex)
 {
-		ili9320_SetPixelIndex(x,y,PixelIndex);
+	u16 colourback = POINT_COLOR;
+			POINT_COLOR = PixelIndex;
+	LCD_DrawPoint(x, y);
+	POINT_COLOR = colourback;
+		//ili9320_SetPixelIndex(x,y,PixelIndex);
 }
 unsigned int LCD_L0_GetPixelIndex(int x, int y)
 {
-  return ili9320_GetPixelIndex(x,y);
+		return LCD_ReadPoint(x, y);
+  //return ili9320_GetPixelIndex(x,y);
 }
 
 void LCD_L0_SetOrg(int x,int y)
