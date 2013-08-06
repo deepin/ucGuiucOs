@@ -49,6 +49,7 @@ void LCD_L0_XorPixel(int x, int y) {
 *
 *       LCD_L0_DrawHLine
 */
+#include "GUI_Protected.h"
 void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
   if (GUI_Context.DrawMode & LCD_DRAWMODE_XOR) {
     for (; x0 <= x1; x0++) {
@@ -56,7 +57,7 @@ void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
     }
   } else {
     for (; x0 <= x1; x0++) {
-      LCD_L0_SetPixelIndex(x0, y, myPOINT_COLOR);
+      LCD_L0_SetPixelIndex(x0, y, GUI_Context.Color);
     }
   }
 }
@@ -72,7 +73,7 @@ void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
     }
   } else {
     for (; y0 <= y1; y0++) {
-      LCD_L0_SetPixelIndex(x, y0, myPOINT_COLOR);
+      LCD_L0_SetPixelIndex(x, y0, GUI_Context.Color);
     }
   }
 }
