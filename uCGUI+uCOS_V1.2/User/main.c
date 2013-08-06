@@ -196,7 +196,7 @@ int main(void)
 	}	
   /* Add your application code here */
 
-	GUI_SetBkColor(GUI_GREEN);
+	//GUI_SetBkColor(GUI_GREEN);
 	GUI_SetColor(GUI_YELLOW);
 	GUI_Clear();
 	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_YELLOW);
