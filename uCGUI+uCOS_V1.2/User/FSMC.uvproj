@@ -1926,11 +1926,6 @@
               <FileType>1</FileType>
               <FilePath>..\uCGUI\LCDDriver\delay.c</FilePath>
             </File>
-            <File>
-              <FileName>main_showcolourbar.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\main_showcolourbar.c</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

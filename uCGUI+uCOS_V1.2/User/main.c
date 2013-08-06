@@ -199,8 +199,24 @@ int main(void)
 	GUI_SetBkColor(GUI_GREEN);
 	GUI_SetColor(GUI_YELLOW);
 	GUI_Clear();
-	
-/*		{
+	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_YELLOW);
+	GUI_DrawHLine(50, 60, 740);
+	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_RED);
+	GUI_DrawHLine(100, 60, 740);
+	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_YELLOW);
+	GUI_DrawHLine(150, 60, 740);
+	GUI_SetColor(GUI_RED);
+	GUI_DrawHLine(200, 60, 740);
+	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_GREEN);
+	GUI_DrawHLine(250, 60, 740);
+	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_RED);
+	GUI_DrawHLine(300, 60, 740);
+	GUI_SetColor(GUI_RED);//GUI_SetColor(GUI_YELLOW);
+	GUI_DrawHLine(350, 60, 740);
+	GUI_SetColor(GUI_RED);
+	GUI_DrawHLine(400, 60, 740);
+
+		/*{
 		FRAMEWIN_Handle hFrame;
 		BUTTON_Handle hButton1;
 		BUTTON_Handle hButton2;
