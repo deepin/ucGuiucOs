@@ -60,10 +60,13 @@ void myTask(void *data)
 	
 	BUTTON_Handle hbutton;
 		
-  //GUI_InvertRect(x1, y1, x2, y2);
+  GUI_InvertRect(x1, y1, x2, y2);
+	GUI_DrawCircle(x2+30, (y1+y2)/2, 30);
+	
+	
 	LED0 = 0;
 	
-/*hbutton = BUTTON_Create(x1, y1, BUTTONsizeX, BUTTONsizeY, GUI_ID_OK, WM_CF_SHOW);
+	hbutton = BUTTON_Create(x2+60, y2, BUTTONsizeX, BUTTONsizeY, GUI_ID_OK, WM_CF_SHOW);
 	if(!hbutton){
 			GUI_DispString("Button is not created!");	
 	}
@@ -73,7 +76,7 @@ void myTask(void *data)
 	BUTTON_SetBkColor(hbutton, 0, GUI_GREEN);
 	BUTTON_SetBkColor(hbutton, 1, GUI_YELLOW);
 	BUTTON_SetText(hbutton, "click!");
-	key = GUI_WaitKey();*/
+	//key = GUI_WaitKey();
 
 	//GUI_InvertRect(x3, y3, x4, y4);
 	GUI_DispString(" How are you!");	
@@ -83,21 +86,15 @@ void myTask(void *data)
 		if(x > x3 && x < x4 && y > y3 && y < y4){
 				LCD_ShowChar(x3, (y3 + y4) / 2 - 8, 'Y', 16, 0);
 		}*/
-		flag = 1 - flag;
-		if(flag == 0){
-			LED0 = 0;
-		}
-		else{
-			LED0 = 1;
-		}
-GUI_DispString(" How are you!");	
+		LED0 = ~LED0;
+		GUI_DispString(" How are you!");	
 	//GUI_Delay(10);
 		//GUI_SetFont(&GUI_Font32B_ASCII);
 		//GUI_DispString("Hello World!");	
 
 		//GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 		//GUI_FillCircle(300, 64, 40);	
-		delay_clk(10000);//delay_ms(200);
+		delay_ms(1000);//delay_ms(200);
 		//GUI_Exec();
 	}
 	
@@ -116,7 +113,7 @@ void myTask2(void *data)
 		GUI_Clear();
 	//GUI_Delay(10);
 		GUI_SetFont(&GUI_Font32B_ASCII);
-		GUI_DispString("            How are you!");	
+		GUI_DispString("\nHow are you!");	
 
 		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 		//GUI_FillCircle(300, 64, 40);	
@@ -194,19 +191,27 @@ void awindow(void *data)
 }
 int main(void)
 {
-  /* Add your application code here */
-	MCU_Init();
 	SysTick_Configuration(); 
-	OSInit();
+	delay_init();	
+	MCU_Init();
+	LED_Init();	
 	
-	LED_Init();
-	delay_init();	    	 
-	GUI_Init();
+	OSInit();    	 
+	GUI_Init();	
+	
+	{
+
+		LED0=0;
+		LED1=0;
+		delay_clk(60000);
+	}	
+  /* Add your application code here */
 
 			//GUI_SetBkColor(GUI_BLUE);
 		//GUI_Clear();
-GUI_DispString("Hello World!");	
+	GUI_DispStringHCenterAt("Hello World!\n", 690, 10);	
 	myTask(0);
+	
 	OSTaskCreate(TaskStart,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&TASK_START_STK[START_STK_SIZE-1],//task stack top pointer

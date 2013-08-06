@@ -14,13 +14,6 @@
 int LCD_L0_Init(void)
 {  
 	LCD_Init_driver();
-		while(ctp_dev.init())		   	//????????
-	{
-		//Show_Str(60,110,lcddev.width,16,"??????????!",16,0); 
-		delay_ms(200);
-		//Show_Str(60,110,lcddev.width,16,"      ???!!!    ",16,0); 
- 		delay_ms(200);
-	};
   return 0;
 }
 

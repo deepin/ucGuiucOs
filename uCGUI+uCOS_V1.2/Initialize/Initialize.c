@@ -416,6 +416,7 @@ u8 SPI1_ReadWriteByte(u8 byte)
   /* Return the byte read from the SPI bus */
   return SPI1->DR;
 }
+void LCD_L0_Init(void);
 u8 MCU_Init(void)//单片机初始化
 {
 	u8 retry = 0;
@@ -426,6 +427,7 @@ u8 MCU_Init(void)//单片机初始化
 	GPIO_Configuration();
 	//LCD9320_GPIO_Init();
 	FSMC_LCD_Init(); 
+	LCD_L0_Init();
 	//Touch_GPIO_Init();
 // 	RTC_Configuration();
 	USART1_Configuration();
