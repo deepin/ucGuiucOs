@@ -31,6 +31,7 @@
 #include "mylcd.h"
 #include "BUTTON.H"
 #include "wm.h"
+#include "string.h"
 void SysTick_Configuration(void);
 
 
@@ -40,6 +41,7 @@ void SysTick_Configuration(void);
   * @param  None
   * @retval None
   */
+	
 	
 void delay_clk(u16 n)
 {
@@ -51,7 +53,7 @@ void delay_clk(u16 n)
 OS_STK  myTask_STK[bigger_stk_size];
 void myTask(void *data)
 {
-	u8 flag = 0;
+	u8 cnt= 0;
 	u16 x, y;
 	U16 BUTTONsizeX = 50, BUTTONsizeY = 30;
 	u16 x1 = 100, y1 = 100, x2 = 160, y2 = 160;
@@ -76,26 +78,21 @@ void myTask(void *data)
 	BUTTON_SetBkColor(hbutton, 0, GUI_GREEN);
 	BUTTON_SetBkColor(hbutton, 1, GUI_YELLOW);
 	BUTTON_SetText(hbutton, "click!");
+	WM_Paint(hbutton);
 	//key = GUI_WaitKey();
 
-	//GUI_InvertRect(x3, y3, x4, y4);
-	GUI_DispString(" How are you!");	
-	while(1)	{
-		/*x = GUI_TOUCH_X_MeasureX();
-		y = GUI_TOUCH_X_MeasureY();
-		if(x > x3 && x < x4 && y > y3 && y < y4){
-				LCD_ShowChar(x3, (y3 + y4) / 2 - 8, 'Y', 16, 0);
-		}*/
-		LED0 = ~LED0;
-		GUI_DispString(" How are you!");	
-	//GUI_Delay(10);
-		//GUI_SetFont(&GUI_Font32B_ASCII);
-		//GUI_DispString("Hello World!");	
 
-		//GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-		//GUI_FillCircle(300, 64, 40);	
-		delay_ms(1000);//delay_ms(200);
-		//GUI_Exec();
+	while(1)	{
+		x = GUI_TOUCH_X_MeasureX();
+		y = GUI_TOUCH_X_MeasureY();
+		if(x > x1 && x < x2 && y > y1 && y < y2){
+				LCD_ShowChar(x1, (y1 + y2) / 2 - 8, '0'+cnt++, 16, 0);
+		}
+		LED0 = ~LED0;
+		//GUI_Delay(10);
+
+		delay_ms(20);//delay_ms(200);
+		GUI_Exec();
 	}
 	
 }
@@ -113,7 +110,7 @@ void myTask2(void *data)
 		GUI_Clear();
 	//GUI_Delay(10);
 		GUI_SetFont(&GUI_Font32B_ASCII);
-		GUI_DispString("\nHow are you!");	
+		GUI_DispString("How are you!");	
 
 		GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
 		//GUI_FillCircle(300, 64, 40);	
@@ -177,14 +174,6 @@ void awindow(void *data)
 		if(x > x3 && x < x4 && y > y3 && y < y4){
 				LCD_ShowChar(x3, (y3 + y4) / 2 - 8, 'Y', 16, 0);
 		}
-		//LED1 = !LED1;
-
-	//GUI_Delay(10);
-		//GUI_SetFont(&GUI_Font32B_ASCII);
-		//GUI_DispString("Hello World!");	
-
-		//GUI_SetDrawMode(GUI_DRAWMODE_NORMAL);
-		//GUI_FillCircle(300, 64, 40);	
 		delay_ms(20);
 	}
 	
@@ -196,7 +185,7 @@ int main(void)
 	MCU_Init();
 	LED_Init();	
 	
-	OSInit();    	 
+	//OSInit();    	 
 	GUI_Init();	
 	
 	{
@@ -207,17 +196,35 @@ int main(void)
 	}	
   /* Add your application code here */
 
-			//GUI_SetBkColor(GUI_BLUE);
-		//GUI_Clear();
+	GUI_SetBkColor(GUI_GREEN);
+	GUI_SetColor(GUI_YELLOW);
+	GUI_Clear();
+	
+/*		{
+		FRAMEWIN_Handle hFrame;
+		BUTTON_Handle hButton1;
+		BUTTON_Handle hButton2;
+
+		hFrame = FRAMEWIN_Create("test", 0, WM_CF_SHOW, 0, 0, 150, 150);
+		WM_Paint(hFrame);
+		hButton1 = BUTTON_CreateAsChild(50, 50, 60, 30, hFrame, 1, WM_CF_SHOW);
+		BUTTON_SetText(hButton1, "1");
+		WM_Paint(hButton1);
+		hButton2 = BUTTON_CreateAsChild(50, 90, 60, 30, hFrame, 1, WM_CF_SHOW);
+		BUTTON_SetText(hButton2, "2");
+		WM_Paint(hButton2);
+	}*/
+
+	
 	GUI_DispStringHCenterAt("Hello World!\n", 690, 10);	
 	myTask(0);
 	
-	OSTaskCreate(TaskStart,	   //task pointer
+	/*OSTaskCreate(startTask,	   //task pointer
 					(void *)0,	       //parameter
 					(OS_STK *)&TASK_START_STK[START_STK_SIZE-1],//task stack top pointer
 					START_TASK_Prio ); //task priority
 	
-	OSStart();                 //开始多任务执行
+	OSStart();                 //开始多任务执行*/
 		
 	return 0;	   
 }

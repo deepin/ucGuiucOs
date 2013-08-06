@@ -19,8 +19,8 @@
 //////////////////////////////////////////////////////////////////////////////////	 
 				 
 //LCD的画笔颜色和背景色	   
-u16 POINT_COLOR=0x0000;	//画笔颜色
-u16 BACK_COLOR=0xFFFF;  //背景色 
+u16 myPOINT_COLOR=0x00ff;	//画笔颜色
+u16 myBACK_COLOR=0xFFFF;  //背景色 
 
 //管理LCD重要参数
 //默认为竖屏
@@ -163,7 +163,7 @@ void LCD_DrawPoint(u16 x,u16 y)
 {
 	LCD_SetCursor(x,y);		//设置光标位置 
 	LCD_WriteRAM_Prepare();	//开始写入GRAM
-	myLCD->LCD_RAM=POINT_COLOR; 
+	myLCD->LCD_RAM=myPOINT_COLOR; 
 }
 //快速画点
 //x,y:坐标
@@ -383,7 +383,7 @@ void LCD_ShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode)
 {  							  
     u8 temp,t1,t;
 	u16 y0=y;
-	u16 colortemp=POINT_COLOR;      			     
+	u16 colortemp=myPOINT_COLOR;      			     
 	//设置窗口		   
 	num=num-' ';//得到偏移后的值
 	if(!mode) //非叠加方式
@@ -394,17 +394,17 @@ void LCD_ShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode)
 			else temp=asc2_1608[num][t];		 //调用1608字体 	                          
 	        for(t1=0;t1<8;t1++)
 			{			    
-		        if(temp&0x80)POINT_COLOR=colortemp;
-				else POINT_COLOR=BACK_COLOR;
+		        if(temp&0x80)myPOINT_COLOR=colortemp;
+				else myPOINT_COLOR=myBACK_COLOR;
 				LCD_DrawPoint(x,y);	
 				temp<<=1;
 				y++;
-				if(x>=lcddev.width){POINT_COLOR=colortemp;return;}//超区域了
+				if(x>=lcddev.width){myPOINT_COLOR=colortemp;return;}//超区域了
 				if((y-y0)==size)
 				{
 					y=y0;
 					x++;
-					if(x>=lcddev.width){POINT_COLOR=colortemp;return;}//超区域了
+					if(x>=lcddev.width){myPOINT_COLOR=colortemp;return;}//超区域了
 					break;
 				}
 			}  	 
@@ -420,18 +420,18 @@ void LCD_ShowChar(u16 x,u16 y,u8 num,u8 size,u8 mode)
 		        if(temp&0x80)LCD_DrawPoint(x,y); 
 				temp<<=1;
 				y++;
-				if(x>=lcddev.height){POINT_COLOR=colortemp;return;}//超区域了
+				if(x>=lcddev.height){myPOINT_COLOR=colortemp;return;}//超区域了
 				if((y-y0)==size)
 				{
 					y=y0;
 					x++;
-					if(x>=lcddev.width){POINT_COLOR=colortemp;return;}//超区域了
+					if(x>=lcddev.width){myPOINT_COLOR=colortemp;return;}//超区域了
 					break;
 				}
 			}  	 
 	    }     
 	}
-	POINT_COLOR=colortemp;	    	   	 	  
+	myPOINT_COLOR=colortemp;	    	   	 	  
 }   
 //m^n函数
 //返回值:m^n次方.

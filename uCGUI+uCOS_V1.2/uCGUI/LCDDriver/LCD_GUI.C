@@ -19,15 +19,15 @@ int LCD_L0_Init(void)
 
 void LCD_L0_SetPixelIndex(int x, int y, int PixelIndex)
 {
-	u16 colourback = POINT_COLOR;
-			POINT_COLOR = PixelIndex;
+	u16 colourback = myPOINT_COLOR;
+	myPOINT_COLOR = PixelIndex;
 	LCD_DrawPoint(x, y);
-	POINT_COLOR = colourback;
+	myPOINT_COLOR = colourback;
 		//ili9320_SetPixelIndex(x,y,PixelIndex);
 }
 unsigned int LCD_L0_GetPixelIndex(int x, int y)
 {
-		return LCD_ReadPoint(x, y);
+		return ((unsigned int)LCD_ReadPoint(x, y));
   //return ili9320_GetPixelIndex(x,y);
 }
 
@@ -56,7 +56,7 @@ void LCD_L0_DrawHLine  (int x0, int y,  int x1) {
     }
   } else {
     for (; x0 <= x1; x0++) {
-      LCD_L0_SetPixelIndex(x0, y, POINT_COLOR);
+      LCD_L0_SetPixelIndex(x0, y, myPOINT_COLOR);
     }
   }
 }
@@ -72,7 +72,7 @@ void LCD_L0_DrawVLine  (int x, int y0,  int y1) {
     }
   } else {
     for (; y0 <= y1; y0++) {
-      LCD_L0_SetPixelIndex(x, y0, POINT_COLOR);
+      LCD_L0_SetPixelIndex(x, y0, myPOINT_COLOR);
     }
   }
 }
